@@ -76,10 +76,12 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
+	//绑定了串口号的ComboBox控件
 	CComboBox mCtrlPort;
 	CListBox mCtrlReceiveBox;
 	afx_msg void OnBnClickedOpenUART();
 	afx_msg void OnBnClickedCloseUART();
 	afx_msg void OnBnClickedButtonClear();
 	afx_msg void OnBnClickedButtonSend();
+	afx_msg void OnCbnSelchangeComboBaudrate2();
 };

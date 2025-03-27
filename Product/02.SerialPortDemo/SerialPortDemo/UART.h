@@ -1,39 +1,39 @@
 /*********************************************************************************************************
-* Ä£¿éÃû³Æ: UART.h
-* Ê¹ÓÃËµÃ÷:
-* Õª    Òª: ºê¶¨Òå
-* µ±Ç°°æ±¾: 1.0.0
-* ×÷    Õß: Leyutek(COPYRIGHT 2018 - 2021 Leyutek. All rights reserved.)
-* Íê³ÉÈÕÆÚ: 2021Äê01ÔÂ22ÈÕ
-* ÄÚ    ÈÝ:
-* ×¢    Òâ: none
+* Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: UART.h
+* Ê¹ï¿½ï¿½Ëµï¿½ï¿½:
+* Õª    Òª: ï¿½ê¶¨ï¿½ï¿½
+* ï¿½ï¿½Ç°ï¿½æ±¾: 1.0.0
+* ï¿½ï¿½    ï¿½ï¿½: Leyutek(COPYRIGHT 2018 - 2021 Leyutek. All rights reserved.)
+* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: 2021ï¿½ï¿½01ï¿½ï¿½22ï¿½ï¿½
+* ï¿½ï¿½    ï¿½ï¿½:
+* ×¢    ï¿½ï¿½: none
 **********************************************************************************************************
-* È¡´ú°æ±¾:
-* ×÷    Õß:
-* Íê³ÉÈÕÆÚ:
-* ÐÞ¸ÄÄÚÈÝ:
-* ÐÞ¸ÄÎÄ¼þ:
+* È¡ï¿½ï¿½ï¿½æ±¾:
+* ï¿½ï¿½    ï¿½ï¿½:
+* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:
+* ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½:
+* ï¿½Þ¸ï¿½ï¿½Ä¼ï¿½:
 *********************************************************************************************************/
 #pragma once
 
 /*********************************************************************************************************
-*                                              °üº¬Í·ÎÄ¼þ
+*                                              ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½
 *********************************************************************************************************/
 #include "Global.h"
 
 /*********************************************************************************************************
-*                                               ºê¶¨Òå
+*                                               ï¿½ê¶¨ï¿½ï¿½
 *********************************************************************************************************/
-//Ò»°ã´®¿ÚµÄ±íÊöÊÇ"COM1","COM2",µ«ÊÇopenport½Ó¿ÚÊäÈëµÄ¶Ë¿Ú¶¼ÊÇÓÃ0±íÊ¾COM1£¬1±íÊ¾COM2
+//Ò»ï¿½ã´®ï¿½ÚµÄ±ï¿½ï¿½ï¿½ï¿½ï¿½"COM1","COM2",ï¿½ï¿½ï¿½ï¿½openportï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶Ë¿Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½Ê¾COM1ï¿½ï¿½1ï¿½ï¿½Ê¾COM2
 #define  MAP2PORT(port)   (port + 1)
 
 /*********************************************************************************************************
-*                                              ÀàµÄ¶¨Òå
+*                                              ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½
 *********************************************************************************************************/
 class CUART
 {
 public:
-	typedef int (*CALLFUNC)(void* pMsg, DWORD dwLength, void* pThis);  //CALLFUNC-»Øµ÷º¯Êý  
+	typedef int (*CALLFUNC)(void* pMsg, DWORD dwLength, void* pThis);  //CALLFUNC-ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½  
 
 	enum EnumPortNum
 	{
@@ -44,51 +44,51 @@ public:
 		COM5
 	};
 
-	enum EnumFlowControl     // ´®¿ÚÁ÷¿ØÖÆ
+	enum EnumFlowControl     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
-		No_FlowControl,      // ÎÞÁ÷¿ØÖÆ
-		Cts_Rts_FlowControl, // ÇëÇó·¢ËÍ/Çå³ý·¢ËÍÁ÷¿ØÖÆ
+		No_FlowControl,      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		Cts_Rts_FlowControl, // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Cts_Dtr_FlowControl,
 		Dsr_Rts_FlowControl,
-		Dsr_Dtr_FlowControl, // Êý¾ÝÖÕ¶Ë¾ÍÐ÷/Êý¾ÝÉèÖÃ¾ÍÐ÷Á÷¿ØÖÆ
-		Xon_Xoff_FlowControl // Èí¼þÁ÷¿ØÖÆ
+		Dsr_Dtr_FlowControl, // ï¿½ï¿½ï¿½ï¿½ï¿½Õ¶Ë¾ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		Xon_Xoff_FlowControl // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	};
 
 	enum EnumRecvMode
 	{
-		Call_Func_Mode, // »Øµ÷º¯ÊýÄ£Ê½
-		Event_Mode      // ÊÂ¼þÇý¶¯Ä£Ê½
+		Call_Func_Mode, // ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+		Event_Mode      // ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
 	};
 
 public:
-	CUART(); // ¹¹Ôìº¯Êý
-	virtual ~CUART(); // Îö¹¹º¯Êý
-	static unsigned _stdcall RecvThread(void* param); // ½ÓÊÕÈÎÎñ·¢ËÍÏß³Ì
+	CUART(); // ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
+	virtual ~CUART(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	static unsigned _stdcall RecvThread(void* param); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½
 
 public:
-	int OpenPort(int iPort, int iRecvMode = Call_Func_Mode); // ´ò¿ªÒ»¸ö¶Ë¿Ú£¬²¢³õÊ¼»¯£¬Ä¬ÈÏCallFuncMode,µ÷ÓÃÊ±¿ÉÒÔÊ¡ÂÔ
+	int OpenPort(int iPort, int iRecvMode = Call_Func_Mode); // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ë¿Ú£ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½CallFuncMode,ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¡ï¿½ï¿½
 	int ConfigPort(int baudRate = 0,
 		int parity = 0,
 		int dataBits = 3,
 		int stopBits = 0,
 		EnumFlowControl fc = No_FlowControl
-	); // ÅäÖÃ¶Ë¿Ú
-	void RegisterCallFunc(CALLFUNC callFunc, void* pThis); // ×¢²áº¯Êý(»Øµ÷º¯Êý±ØÐëÎªstatic) 
-	int  RecvTaskProc(); // ½ÓÊÕÊÂ¼þÏûÏ¢º¯Êý
-	int  SendData(LPCVOID pData, DWORD dwLen); // ·¢ËÍÊý¾Ý
-	int  RecvData(LPVOID  pData, DWORD dwLen); // ½ÓÊÕÊý¾Ý
-	int  WaitComm(); // µÈ´ý´®¿ÚÊÂ¼þ
-	void ClosePort(); // ¹Ø±Õ¶Ë¿Ú
-	BOOL IsOpen() const; // ÅÐ¶Ï¶Ë¿ÚÊÇ·ñ´ò¿ª
-	HANDLE mCommHandle; // ¶Ë¿Ú¾ä±ú
+	); // ï¿½ï¿½ï¿½Ã¶Ë¿ï¿½
+	void RegisterCallFunc(CALLFUNC callFunc, void* pThis); // ×¢ï¿½áº¯ï¿½ï¿½(ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªstatic) 
+	int  RecvTaskProc(); // ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
+	int  SendData(LPCVOID pData, DWORD dwLen); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int  RecvData(LPVOID  pData, DWORD dwLen); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int  WaitComm(); // ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
+	void ClosePort(); // ï¿½Ø±Õ¶Ë¿ï¿½
+	BOOL IsOpen() const; // ï¿½Ð¶Ï¶Ë¿ï¿½ï¿½Ç·ï¿½ï¿½
+	HANDLE mCommHandle; // ï¿½Ë¿Ú¾ï¿½ï¿½
 
 private:
-	OVERLAPPED mLSend;           // ¶Ë¿Ú·¢ËÍOVERLAPPED½á¹¹
-	OVERLAPPED mLRecv;           // ¶Ë¿Ú½ÓÊÕOVERLAPPED½á¹¹
-	CALLFUNC   mRecvMsgCallFunc; // ½ÓÊÕ»Øµ÷º¯ÊýÖ¸Õë
-	void*      mRegisterPoint;   // ×¢²áÄ£¿éÖ¸Õë
-	int        mRecvMode;        // ½ÓÊÕÄ£Ê½ 
-	HANDLE     mRecvMsgEvent;    // ½ÓÊÕÏûÏ¢Í¨ÖªÊÂ¼þ¾ä±ú£¨»Øµ÷Ä£Ê½ÓÃ£©
-	HANDLE     mRecvThread;      // ½ÓÊÕÏß³Ì¾ä±ú£¨»Øµ÷Ä£Ê½ÓÃ£©
-	BOOL       mRunThread;       // ½ÓÊÕÈÎÎñÔËÐÐ±êÖ¾
+	OVERLAPPED mLSend;           // ï¿½Ë¿Ú·ï¿½ï¿½ï¿½OVERLAPPEDï¿½á¹¹
+	OVERLAPPED mLRecv;           // ï¿½Ë¿Ú½ï¿½ï¿½ï¿½OVERLAPPEDï¿½á¹¹
+	CALLFUNC   mRecvMsgCallFunc; // ï¿½ï¿½ï¿½Õ»Øµï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+	void*      mRegisterPoint;   // ×¢ï¿½ï¿½Ä£ï¿½ï¿½Ö¸ï¿½ï¿½
+	int        mRecvMode;       
+	HANDLE     mRecvMsgEvent;    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Í¨Öªï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½Ä£Ê½ï¿½Ã£ï¿½
+	HANDLE     mRecvThread;      // ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì¾ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½Ä£Ê½ï¿½Ã£ï¿½
+	BOOL       mRunThread;       // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½Ö¾
 };

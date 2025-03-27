@@ -1,6 +1,6 @@
 ﻿//{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ 生成的包含文件。
-// 供 SerialPortDemo.rc 使用
+// Microsoft Visual C++ generated include file.
+// Used by SerialPortDemo.rc
 //
 #define IDC_CLOSE_UART                  3
 #define IDC_BUTTON_CLEAR                4
@@ -19,6 +19,7 @@
 #define IDC_COMBO_STOPBITS              1006
 #define ID_OPEN_UART                    1007
 #define IDC_OPEN_UART                   1007
+#define IDC_COMBO_BAUDRATE2             1008
 
 // Next default values for new objects
 // 

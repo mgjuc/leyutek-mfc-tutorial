@@ -140,6 +140,7 @@ BOOL CSerialPortDemoDlg::OnInitDialog()
 	p = (CComboBox*)GetDlgItem(IDC_COMBO_STOPBITS);
 	p->SetCurSel(mStopBits);
 
+	//初始化串口号
 	CString portStr;
 
 	mCtrlPort.ResetContent(); // 清空串口号ComboBox里面的内容
@@ -147,7 +148,7 @@ BOOL CSerialPortDemoDlg::OnInitDialog()
 	// 搜索串口号
 	EnumUARTPort();
 
-	portStr.Format("COM%d", mPort);
+	portStr.Format(_T("COM%d"), mPort);
 	mCtrlPort.SelectString(0, (LPCTSTR)portStr); // 搜索串口字符串
 
 	if(mCtrlPort.GetCount() > 1) // 如果当前有端口，就将第一个端口显示在ComboBox上
@@ -240,7 +241,7 @@ void CSerialPortDemoDlg::EnumUARTPort()
 	{
 		LONG lStatus;
 		TCHAR szName[256] = { 0 };
-		UCHAR szPortName[80] = { 0 };
+		TCHAR szPortName[20] = { 0 };
 		DWORD dwName;
 		DWORD dwSizeofPortName;
 		DWORD dwType;
@@ -249,7 +250,7 @@ void CSerialPortDemoDlg::EnumUARTPort()
 		dwSizeofPortName = sizeof(szPortName);
 		// 用来枚举指定项的值
 		lStatus = RegEnumValue(hKey, dwIndex++, szName, &dwName, NULL, &dwType,
-			szPortName, &dwSizeofPortName);
+			(LPBYTE)szPortName, &dwSizeofPortName);
 		if((lStatus == ERROR_SUCCESS) || (lStatus == ERROR_MORE_DATA))
 		{
 			CString str;
@@ -265,10 +266,10 @@ void CSerialPortDemoDlg::EnumUARTPort()
 	// 进行串口号的排序，从小到大排序
 	for(int portNum = 1; portNum <= 255; portNum++)
 	{
-		strPort.Format("COM%d", portNum);
+		strPort.Format(_T("COM%d"), portNum);
 		for(int i = 1; i <= dwIndex; i++) // 遍历有没有字符串相等的，此处的最大值不能是mCtrlPort.GetCount()!!!
 		{
-			if(strcmp(strPort, arrStrPort[i]) == 0)
+			if(lstrcmp(strPort, arrStrPort[i]) == 0)
 			{
 				mCtrlPort.AddString(arrStrPort[i]);
 			}
@@ -296,7 +297,7 @@ int CSerialPortDemoDlg::ReceiveProc(void* data, DWORD dwLen, void* pThis)
 		for(int i = 0; i < dwLen; i++)
 		{
 			uchar tmp = *p++; // 指针+1后读数据
-			strTmp.Format("%x ", tmp); // 将ntmp转化为CString类型,以16进制数显示
+			strTmp.Format(_T("%x "), tmp); // 将ntmp转化为CString类型,以16进制数显示
 			str = str + strTmp;
 		}
 
@@ -361,6 +362,8 @@ void CSerialPortDemoDlg::OnBnClickedOpenUART()
 	}
 
 	// 获取对应ComboBox框的关联变量的值，并设置下次设置的默认值
+	//因为语言问题，导到Combo里data设置的中文会乱码 https://www.cnblogs.com/stronghorse/p/16096271.html
+	//WIN11关闭语言调级选项以unicode显示其它语言，能显示正常
 	p = (CComboBox*)GetDlgItem(IDC_COMBO_PARITY);
 	mParity = p->GetCurSel();
 
@@ -438,7 +441,8 @@ void CSerialPortDemoDlg::OnBnClickedButtonSend()
 
 	for(int i = 0; i < len; i++)
 	{
-		tmp = (uchar)(strtol(strArr.GetAt(i), NULL, 16)); // 将字符串转化为16进制的数
+		//CT2A宏： Change Text to ASCII
+		tmp = (uchar)(strtol(CT2A(strArr.GetAt(i)), NULL, 16)); // 将字符串转化为16进制的数
 		*(data + i) = tmp;
 	}
 
